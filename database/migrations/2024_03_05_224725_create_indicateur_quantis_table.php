@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('indicateur_quantis', function (Blueprint $table) {
             $table->id();
+            $table->json("quanti");
             $table->timestamps();
         });
     }
