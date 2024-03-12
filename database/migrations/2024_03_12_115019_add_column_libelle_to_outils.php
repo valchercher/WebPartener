@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('semestres', function (Blueprint $table) {
-            $table->id();
+        Schema::table('outils', function (Blueprint $table) {
             $table->string('libelle');
-            $table->boolean("etat")->default(false);
-            $table->softDeletes();
-            $table->timestamps();
+            $table->boolean('statut')->default(0);
+
         });
     }
 
@@ -25,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('semestres');
+        Schema::table('outils', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Annee;
+
 return new class extends Migration
 {
     /**
@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('semestres', function (Blueprint $table) {
-            $table->id();
-            $table->string('libelle');
-            $table->boolean("etat")->default(false);
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('palliers', function (Blueprint $table) {
+            $table->integer('commission_RAVT');
+            $table->integer('commission_SADI');
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('semestres');
+        Schema::table('palliers', function (Blueprint $table) {
+            //
+        });
     }
 };
