@@ -3,8 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Annee;
-use App\Models\Semestre;
+use App\Models\User;
+
 return new class extends Migration
 {
     /**
@@ -12,11 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('annee_semestres', function (Blueprint $table) {
+        Schema::create('ras', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Annee::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Semestre::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(AnneeSemestre::class)->constrained()->cascadeOnDelete();
+            $table->string('nom_agence');
+            $table->string('adresse_agence');
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->boolean("statut")->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('annee_semestres');
+        Schema::dropIfExists('ra');
     }
 };
