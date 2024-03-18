@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use App\Models\Outil;
+use App\Models\Annee;
 return new class extends Migration
 {
     /**
@@ -11,12 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('annees', function (Blueprint $table) {
-            $table->id();
-            $table->string('libelle');
-            $table->boolean("etat")->default(false);
+        Schema::table('objectifs', function (Blueprint $table) {
+            $table->foreignIdFor(Outil::class)->constrained()->cascadeOnDelete();
+            $table->boolean("statut")->default(0);
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 
@@ -25,6 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('annees');
+        Schema::table('objectifs', function (Blueprint $table) {
+            //
+        });
     }
 };

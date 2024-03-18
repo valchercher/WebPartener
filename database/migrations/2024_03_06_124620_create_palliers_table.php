@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('annees', function (Blueprint $table) {
+        Schema::create('palliers', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle');
-            $table->boolean("etat")->default(false);
-            $table->softDeletes();
+            $table->string("libelle");
+            $table->string('condition');
+            $table->integer('regle_pallier');
+            $table->integer("commission_RA");
+            $table->integer("commission_CC");
+            $table->boolean("statut")->default(false);
             $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('annees');
+        Schema::dropIfExists('palliers');
     }
 };

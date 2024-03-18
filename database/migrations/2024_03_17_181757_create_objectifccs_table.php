@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('annees', function (Blueprint $table) {
+        Schema::create('objectifccs', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle');
-            $table->boolean("etat")->default(false);
-            $table->softDeletes();
+            $table->foreignId('cc_id')->constrained('ccs')->cascadeOnDelete();
+            $table->foreignId('objectifra_id')->constrained('objectifras')->cascadeOnDelete();
+            $table->integer('value');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('annees');
+        Schema::dropIfExists('objectifccs');
     }
 };

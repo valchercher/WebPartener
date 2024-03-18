@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
+use App\Models\Role;
 return new class extends Migration
 {
     /**
@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('annees', function (Blueprint $table) {
-            $table->id();
-            $table->string('libelle');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string("matricule");
+            $table->string("username");
+            $table->enum("options",["sonatel","sablix","neant"])->default("neant");
+            $table->foreignIdFor(Role::class)->constrained()->cascadeOnDelete();
             $table->boolean("etat")->default(false);
             $table->softDeletes();
-            $table->timestamps();
         });
     }
 
@@ -25,6 +26,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('annees');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -11,10 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('annees', function (Blueprint $table) {
+        Schema::create('ras', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle');
-            $table->boolean("etat")->default(false);
+            $table->string('nom_agence');
+            $table->string('adresse_agence');
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->boolean("statut")->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('annees');
+        Schema::dropIfExists('ra');
     }
 };
